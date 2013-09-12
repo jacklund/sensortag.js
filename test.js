@@ -46,11 +46,11 @@ sensortag.connect(destination, function(err, conn) {
     console.log("Magnet: %d, %d, %d", x, y, z);
   });
 
-  conn.readBarometer(function(err, temp, pres) {
+  conn.readBarometer(function(err, pres, temp) {
     if (err) {
       console.log(err);
     }
 
-    console.log("Barometer: %d, %d", temp, pres);
+    console.log("Barometer: %d, %d", pres, temp);
   });
 });
