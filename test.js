@@ -53,4 +53,9 @@ sensortag.connect(destination, function(err, conn) {
 
     console.log("Barometer: %d, %d", pres, temp);
   });
+
+  conn.calibrateGyroscope();
+  conn.readGyroscope(true, true, true, function(x, y, z) {
+    console.log("Gyroscope: %d, %d, %d", x, y, z);
+  });
 });
