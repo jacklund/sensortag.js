@@ -58,4 +58,15 @@ sensortag.connect(destination, function(err, conn) {
   conn.readGyroscope(true, true, true, function(x, y, z) {
     console.log("Gyroscope: %d, %d, %d", x, y, z);
   });
+
+  conn.checkPowerOnSelfTest(function(bitmask) {
+    if (! bitmask & conn.SelfTestValues.IR_TEMP) console.log("IR temp failed");
+    if (! bitmask & conn.SelfTestValues.HUMIDITY) console.log("Humidity failed");
+    if (! bitmask & conn.SelfTestValues.MAGNET) console.log("Magnet failed");
+    if (! bitmask & conn.SelfTestValues.ACCEL) console.log("Accelerometer failed");
+    if (! bitmask & conn.SelfTestValues.PRESSURE) console.log("Barometer failed");
+    if (! bitmask & conn.SelfTestValues.GYRO) console.log("Gyroscope failed");
+    if (bitmask & conn.SelfTestValues.SUCCESS) console.log("Success!");
+  });
+
 });
