@@ -22,6 +22,7 @@ sensortag.connect(destination, function(err, conn) {
     console.log("Temp: %d, %d", t1, t2);
   });
 
+  /*
   conn.readAccelerometer(function(err, x, y, z) {
     if (err) {
       console.log(err);
@@ -68,5 +69,6 @@ sensortag.connect(destination, function(err, conn) {
     if (! bitmask & conn.SelfTestValues.GYRO) console.log("Gyroscope failed");
     if (bitmask & conn.SelfTestValues.SUCCESS) console.log("Success!");
   });
+  */
 
 });
