@@ -8,13 +8,13 @@ if (process.argv.length < 3) {
 
 var destination = process.argv[2];
 
-sensortag.connect(destination, function(err, conn) {
+sensortag.connect(destination, function(err, tag) {
   if (err) {
     console.log("Error: %s", err);
     process.exit(1);
   }
 
-  conn.readTemperature(function(err, t1, t2) {
+  tag.readTemperature(function(err, t1, t2) {
     if (err) {
       console.log(err);
     }
@@ -22,8 +22,7 @@ sensortag.connect(destination, function(err, conn) {
     console.log("Temp: %d, %d", t1, t2);
   });
 
-  /*
-  conn.readAccelerometer(function(err, x, y, z) {
+  tag.readAccelerometer(function(err, x, y, z) {
     if (err) {
       console.log(err);
     }
@@ -31,7 +30,7 @@ sensortag.connect(destination, function(err, conn) {
     console.log("Accel: %d, %d, %d", x, y, z);
   });
 
-  conn.readHumidity(function(err, temp, humidity) {
+  tag.readHumidity(function(err, temp, humidity) {
     if (err) {
       console.log(err);
     }
@@ -39,7 +38,7 @@ sensortag.connect(destination, function(err, conn) {
     console.log("Humidity: %d, %d", temp, humidity);
   });
 
-  conn.readMagnetometer(function(err, x, y, z) {
+  tag.readMagnetometer(function(err, x, y, z) {
     if (err) {
       console.log(err);
     }
@@ -47,7 +46,7 @@ sensortag.connect(destination, function(err, conn) {
     console.log("Magnet: %d, %d, %d", x, y, z);
   });
 
-  conn.readBarometer(function(err, pres, temp) {
+  tag.readBarometer(function(err, pres, temp) {
     if (err) {
       console.log(err);
     }
@@ -55,19 +54,20 @@ sensortag.connect(destination, function(err, conn) {
     console.log("Barometer: %d, %d", pres, temp);
   });
 
-  conn.calibrateGyroscope();
-  conn.readGyroscope(true, true, true, function(x, y, z) {
+  tag.calibrateGyroscope();
+  tag.readGyroscope(true, true, true, function(x, y, z) {
     console.log("Gyroscope: %d, %d, %d", x, y, z);
   });
 
-  conn.checkPowerOnSelfTest(function(bitmask) {
-    if (! bitmask & conn.SelfTestValues.IR_TEMP) console.log("IR temp failed");
-    if (! bitmask & conn.SelfTestValues.HUMIDITY) console.log("Humidity failed");
-    if (! bitmask & conn.SelfTestValues.MAGNET) console.log("Magnet failed");
-    if (! bitmask & conn.SelfTestValues.ACCEL) console.log("Accelerometer failed");
-    if (! bitmask & conn.SelfTestValues.PRESSURE) console.log("Barometer failed");
-    if (! bitmask & conn.SelfTestValues.GYRO) console.log("Gyroscope failed");
-    if (bitmask & conn.SelfTestValues.SUCCESS) console.log("Success!");
+  /*
+  tag.checkPowerOnSelfTest(function(bitmask) {
+    if (! bitmask & tag.SelfTestValues.IR_TEMP) console.log("IR temp failed");
+    if (! bitmask & tag.SelfTestValues.HUMIDITY) console.log("Humidity failed");
+    if (! bitmask & tag.SelfTestValues.MAGNET) console.log("Magnet failed");
+    if (! bitmask & tag.SelfTestValues.ACCEL) console.log("Accelerometer failed");
+    if (! bitmask & tag.SelfTestValues.PRESSURE) console.log("Barometer failed");
+    if (! bitmask & tag.SelfTestValues.GYRO) console.log("Gyroscope failed");
+    if (bitmask & tag.SelfTestValues.SUCCESS) console.log("Success!");
   });
   */
 
